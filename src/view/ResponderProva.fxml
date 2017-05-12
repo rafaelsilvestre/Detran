@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="351.0" prefWidth="734.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane prefHeight="351.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ResponderProvaController">
    <children>
       <VBox layoutX="41.0" layoutY="23.0" prefHeight="486.0" prefWidth="734.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
          <children>
@@ -19,7 +18,7 @@
                         <Font name="System Bold" size="17.0" />
                      </font>
                   </Label>
-                  <Label layoutX="631.0" layoutY="1.0" text="20:00">
+                  <Label fx:id="time" layoutX="631.0" layoutY="1.0" text="20:00">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -36,22 +35,22 @@
             </Pane>
             <VBox prefWidth="100.0">
                <children>
-                  <RadioButton mnemonicParsing="false" text="RadioButton">
+                  <RadioButton fx:id="option1" mnemonicParsing="false" text="RadioButton">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="RadioButton">
+                  <RadioButton fx:id="option2" mnemonicParsing="false" text="RadioButton">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="RadioButton">
+                  <RadioButton fx:id="option3" mnemonicParsing="false" text="RadioButton">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="RadioButton">
+                  <RadioButton fx:id="option4" mnemonicParsing="false" text="RadioButton">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -62,17 +61,17 @@
                <children>
                   <HBox alignment="CENTER" layoutX="165.0" layoutY="5.0">
                      <children>
-                        <Button mnemonicParsing="false" prefWidth="110.0" text="Voltar">
+                        <Button mnemonicParsing="false" onAction="#prevQuestion" prefWidth="110.0" text="Voltar">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" text="Avançar">
+                        <Button mnemonicParsing="false" onAction="#nextQuestion" prefHeight="27.0" prefWidth="110.0" text="Avançar">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" text="Finalizar" />
+                        <Button mnemonicParsing="false" onAction="#examFinalize" prefHeight="27.0" prefWidth="110.0" text="Finalizar" />
                      </children>
                   </HBox>
                </children>

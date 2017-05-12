@@ -13,7 +13,10 @@ public class Main extends Application{
         Parent parent = FXMLLoader.load(getClass().getResource("ResponderProva.fxml"));
         Scene scene = new Scene(parent);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.centerOnScreen();
         primaryStage.show();
+        
     }
 
     public static void main(String[] args) {
