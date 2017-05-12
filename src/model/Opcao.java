@@ -3,6 +3,7 @@ package model;
 public class Opcao {
 	private int id;
 	private String title;
+	private boolean veracidade;
 	
 	public int getId() {
 		return id;
@@ -15,5 +16,11 @@ public class Opcao {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public boolean isVerdadeiro() {
+		return veracidade;
+	}
+	public void setVeracidade(boolean veracidade) {
+		this.veracidade = veracidade;
 	}
 }
