@@ -1,17 +1,21 @@
 package controller;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import dao.PerguntaDAO;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import model.Pergunta;
 import util.Cronometro;
 
 public class ResponderProvaController implements Initializable{
@@ -24,18 +28,19 @@ public class ResponderProvaController implements Initializable{
  
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		Cronometro contagem = new Cronometro(0, 0, 0, 0, 20, 0);
-        contagem.cronometro();
-        
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                	time.setText(contagem.getTime());
-                });
-            }
-        }, 1000, 1000);
+		Pergunta p1 = new Pergunta();
+		p1.setTitle("O condutor que entrega a direção do seu veículo a pessoa não habilitada");
+		
+		PerguntaDAO perguntaDAO = new PerguntaDAO();
+		try {
+			ArrayList<Pergunta> perguntas =  perguntaDAO.getPerguntas();
+			for(int i = 0; i < perguntas.size(); i++){
+				System.out.println(perguntas.get(i).getTitle());
+			}
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 		
 		option1.setToggleGroup(group);
 		option2.setToggleGroup(group);

@@ -40,5 +40,17 @@ public class Cronometro {
     public static void main(String[] args) {
         Cronometro contagem = new Cronometro(0, 0, 0, 0, 20, 0);
         contagem.cronometro();
+        
+//      Timer timer = new Timer();
+//      timer.scheduleAtFixedRate(new TimerTask() {
+//          @Override
+//          public void run() {
+//              Platform.runLater(() -> {
+//              	time.setText(contagem.getTime());
+//              	if(contagem.getTime().equals("00:00"))
+//              		this.cancel(); 
+//              });
+//          }
+//      }, 1000, 1000);
     }
 }
