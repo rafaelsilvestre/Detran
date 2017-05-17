@@ -42,7 +42,7 @@ public class PerguntaDAO {
 		PreparedStatement ps = null;
 	    ResultSet rs = null;
 		
-	    String sql = "SELECT * FROM PERGUNTA";
+	    String sql = "SELECT * FROM PERGUNTA ORDER BY RANDOM() LIMIT 10";
 		try {
 			 ps = this.connection.prepareStatement(sql);
 			 rs = ps.executeQuery();

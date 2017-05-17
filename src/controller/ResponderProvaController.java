@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import dao.OpcaoDAO;
 import dao.PerguntaDAO;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import model.Opcao;
 import model.Pergunta;
 import util.Cronometro;
 
@@ -24,23 +26,22 @@ public class ResponderProvaController implements Initializable{
 	@FXML private RadioButton option2;
 	@FXML private RadioButton option3;
 	@FXML private RadioButton option4;
-	@FXML public Label time;
+	@FXML public Label labelTime;
+	@FXML public Label labelPergunta;
+	@FXML public Label indexQuestion;
+	
+	private int positionQuestion = 0;
+	
+	private PerguntaDAO perguntaDAO = new PerguntaDAO();
+	private ArrayList<Pergunta> perguntas;
+	
+	public ResponderProvaController() throws SQLException{
+		this.perguntas =  this.perguntaDAO.getPerguntas();
+	}
  
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		Pergunta p1 = new Pergunta();
-		p1.setTitle("O condutor que entrega a direção do seu veículo a pessoa não habilitada");
-		
-		PerguntaDAO perguntaDAO = new PerguntaDAO();
-		try {
-			ArrayList<Pergunta> perguntas =  perguntaDAO.getPerguntas();
-			for(int i = 0; i < perguntas.size(); i++){
-				System.out.println(perguntas.get(i).getTitle());
-			}
-			
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+		this.reloadQuestion();
 		
 		option1.setToggleGroup(group);
 		option2.setToggleGroup(group);
@@ -48,12 +49,54 @@ public class ResponderProvaController implements Initializable{
 		option4.setToggleGroup(group);
 	}
 	
-	public void nextQuestion(){
-		System.out.println("PÃ³ximo");
+	public void reloadQuestion(){
+		Pergunta pergunta = this.perguntas.get(this.positionQuestion);
+		this.indexQuestion.setText("Pergunta " + (this.positionQuestion + 1));
+		this.labelPergunta.setText(pergunta.getTitle().trim());
+		
+		for(int i = 0; i < pergunta.getOpcoes().size(); i++){
+			switch(i){
+				case 0:
+					this.option1.setText(pergunta.getOpcoes().get(0).getTitle().trim());
+					break;
+				case 1:
+					this.option2.setText(pergunta.getOpcoes().get(1).getTitle().trim());
+					break;
+				case 2:
+					this.option3.setText(pergunta.getOpcoes().get(2).getTitle().trim());
+					break;
+				case 3:
+					this.option4.setText(pergunta.getOpcoes().get(3).getTitle().trim());
+					break;
+			}
+		}
 	}
 	
-	public void  prevQuestion(){
-		System.out.println("Anterior");
+	public boolean nextQuestion(){
+		Pergunta pergunta = this.perguntas.get(this.positionQuestion);
+		RadioButton selectedRadioButton = (RadioButton) group.getSelectedToggle();
+		String toogleGroupValue = selectedRadioButton.getText();
+		System.out.println(toogleGroupValue);
+
+		for(int i = 0; i < pergunta.getOpcoes().size(); i++){
+			if(pergunta.getOpcoes().get(i).getTitle().equals(toogleGroupValue)){
+				System.out.println("Pergunta Correta -" + pergunta.getOpcoes().get(i).getTitle());
+			}
+		}
+		
+		if(this.positionQuestion == (this.perguntas.size() - 1))
+			return false;
+		this.positionQuestion++;
+		this.reloadQuestion();
+		return true;
+	}
+	
+	public boolean  prevQuestion(){
+		if(this.positionQuestion == 0)
+			return false;
+		this.positionQuestion--;
+		this.reloadQuestion();
+		return false;
 	}
 	
 	public void examFinalize(){

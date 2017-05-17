@@ -18,6 +18,24 @@ public class OpcaoDAO {
 		this.connection = new ConnectionFactory().getConnection();
 	}
 	
+	public void save(Opcao opcao, Pergunta pergunta) throws SQLException{
+		PreparedStatement ps = null;
+	    
+		String sql = "INSERT INTO OPCAO (TITULO, ID_PERGUNTA, VERACIDADE) VALUES (?, ?, ?)";
+		 try {
+			 ps = this.connection.prepareStatement(sql);
+			 ps.setString(1, opcao.getTitle());
+			 ps.setInt(2, pergunta.getId());
+			 ps.setBoolean(3, opcao.isVerdadeiro());
+			 ps.execute();
+		 } catch (Exception e) {
+			 System.out.println(e.getMessage());
+			 FXUtil.mensagem("Problema...", "Erro ao inserir pergunta", e.getMessage());
+		 } finally {
+			 ps.close();
+	     }
+	}
+	
 	public ArrayList<Opcao> getOpcoes(Pergunta pergunta) throws SQLException{
 		ArrayList<Opcao> opcoes = new ArrayList<Opcao>();
 		

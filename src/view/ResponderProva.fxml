@@ -13,7 +13,7 @@
          <children>
             <Pane minHeight="-Infinity" prefHeight="23.0" prefWidth="674.0">
                <children>
-                  <Label text="Pergunta 1">
+                  <Label fx:id="indexQuestion" text="Pergunta 1">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
@@ -27,7 +27,7 @@
             </Pane>
             <Pane maxWidth="-Infinity" minHeight="50.0" prefWidth="674.0">
                <children>
-                  <Label prefWidth="674.0" text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo    consequat." wrapText="true" />
+                  <Label fx:id="labelPergunta" prefWidth="674.0" text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo    consequat." wrapText="true" />
                </children>
                <VBox.margin>
                   <Insets bottom="20.0" top="20.0" />
