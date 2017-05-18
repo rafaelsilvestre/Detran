@@ -5,6 +5,15 @@ import java.util.ArrayList;
 public class Pergunta {
 	private int id;
 	private String title;
+	private int selected;
+	
+	
+	public int getSelected() {
+		return selected;
+	}
+	public void setSelected(int selected) {
+		this.selected = selected;
+	}
 	private ArrayList<Opcao> opcoes = new ArrayList<Opcao>();
 	
 	public int getId() {

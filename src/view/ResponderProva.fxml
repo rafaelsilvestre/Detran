@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -7,9 +8,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="351.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ResponderProvaController">
+<AnchorPane prefHeight="307.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ResponderProvaController">
    <children>
-      <VBox layoutX="41.0" layoutY="23.0" prefHeight="486.0" prefWidth="734.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+      <VBox layoutX="41.0" layoutY="23.0" prefHeight="249.0" prefWidth="674.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
          <children>
             <Pane minHeight="-Infinity" prefHeight="23.0" prefWidth="674.0">
                <children>
@@ -23,6 +24,11 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
+                  <ImageView fx:id="imageQuestion" fitHeight="46.0" fitWidth="54.0" layoutX="102.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/images/stop.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
             <Pane maxWidth="-Infinity" minHeight="50.0" prefWidth="674.0">
@@ -30,7 +36,7 @@
                   <Label fx:id="labelPergunta" prefWidth="674.0" text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo    consequat." wrapText="true" />
                </children>
                <VBox.margin>
-                  <Insets bottom="20.0" top="20.0" />
+                  <Insets top="20.0" />
                </VBox.margin>
             </Pane>
             <VBox prefWidth="100.0">

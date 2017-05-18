@@ -10,7 +10,7 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent parent = FXMLLoader.load(getClass().getResource("ResponderProva.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("Main.fxml"));
         Scene scene = new Scene(parent);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

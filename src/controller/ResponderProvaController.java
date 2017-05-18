@@ -16,6 +16,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.Opcao;
 import model.Pergunta;
 import util.Cronometro;
@@ -29,6 +31,7 @@ public class ResponderProvaController implements Initializable{
 	@FXML public Label labelTime;
 	@FXML public Label labelPergunta;
 	@FXML public Label indexQuestion;
+	@FXML public ImageView imageQuestion;
 	
 	private int positionQuestion = 0;
 	
@@ -51,8 +54,11 @@ public class ResponderProvaController implements Initializable{
 	
 	public void reloadQuestion(){
 		Pergunta pergunta = this.perguntas.get(this.positionQuestion);
+		Image image = new Image("http://www.detran.se.gov.br/images/sinalizacao_transito/regulamentacao/R_26.jpg");
+		
 		this.indexQuestion.setText("Pergunta " + (this.positionQuestion + 1));
 		this.labelPergunta.setText(pergunta.getTitle().trim());
+		this.imageQuestion.setImage(image);
 		
 		for(int i = 0; i < pergunta.getOpcoes().size(); i++){
 			switch(i){
@@ -73,16 +79,16 @@ public class ResponderProvaController implements Initializable{
 	}
 	
 	public boolean nextQuestion(){
-		Pergunta pergunta = this.perguntas.get(this.positionQuestion);
-		RadioButton selectedRadioButton = (RadioButton) group.getSelectedToggle();
-		String toogleGroupValue = selectedRadioButton.getText();
-		System.out.println(toogleGroupValue);
+		//Pergunta pergunta = this.perguntas.get(this.positionQuestion);
+//		RadioButton selectedRadioButton = (RadioButton) group.getSelectedToggle();
+//		String toogleGroupValue = selectedRadioButton.getText();
+//		System.out.println(toogleGroupValue);
 
-		for(int i = 0; i < pergunta.getOpcoes().size(); i++){
-			if(pergunta.getOpcoes().get(i).getTitle().equals(toogleGroupValue)){
-				System.out.println("Pergunta Correta -" + pergunta.getOpcoes().get(i).getTitle());
-			}
-		}
+//		for(int i = 0; i < pergunta.getOpcoes().size(); i++){
+//			if(pergunta.getOpcoes().get(i).getTitle().equals(toogleGroupValue)){
+//				System.out.println("Pergunta Correta -" + pergunta.getOpcoes().get(i).getTitle());
+//			}
+//		}
 		
 		if(this.positionQuestion == (this.perguntas.size() - 1))
 			return false;
