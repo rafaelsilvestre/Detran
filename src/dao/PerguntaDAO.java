@@ -52,6 +52,7 @@ public class PerguntaDAO {
 				 
 				 pergunta.setId(rs.getInt("id_pergunta"));
 				 pergunta.setTitle(rs.getString("titulo"));
+				 pergunta.setImage(rs.getString("image"));
 				 
 				 opcoes = new OpcaoDAO().getOpcoes(pergunta);
 				 for(int i = 0; i < opcoes.size(); i++){

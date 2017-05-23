@@ -6,15 +6,21 @@ public class Pergunta {
 	private int id;
 	private String title;
 	private int selected;
+	private String image;
+	private ArrayList<Opcao> opcoes = new ArrayList<Opcao>();
 	
-	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	public int getSelected() {
 		return selected;
 	}
 	public void setSelected(int selected) {
 		this.selected = selected;
 	}
-	private ArrayList<Opcao> opcoes = new ArrayList<Opcao>();
 	
 	public int getId() {
 		return id;
