@@ -24,11 +24,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageQuestion" fitHeight="46.0" fitWidth="54.0" layoutX="102.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../assets/images/stop.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="imageQuestion" fitHeight="46.0" fitWidth="54.0" layoutX="102.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true" visible="false" />
                </children>
             </Pane>
             <Pane maxWidth="-Infinity" minHeight="50.0" prefWidth="674.0">
@@ -41,22 +37,22 @@
             </Pane>
             <VBox prefWidth="100.0">
                <children>
-                  <RadioButton fx:id="option1" mnemonicParsing="false" text="RadioButton">
+                  <RadioButton fx:id="option1" mnemonicParsing="false" onAction="#reloadAnswer" text="RadioButton">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </RadioButton>
-                  <RadioButton fx:id="option2" mnemonicParsing="false" text="RadioButton">
+                  <RadioButton fx:id="option2" mnemonicParsing="false" onAction="#reloadAnswer" text="RadioButton">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </RadioButton>
-                  <RadioButton fx:id="option3" mnemonicParsing="false" text="RadioButton">
+                  <RadioButton fx:id="option3" mnemonicParsing="false" onAction="#reloadAnswer" text="RadioButton">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </RadioButton>
-                  <RadioButton fx:id="option4" mnemonicParsing="false" text="RadioButton">
+                  <RadioButton fx:id="option4" mnemonicParsing="false" onAction="#reloadAnswer" text="RadioButton">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>

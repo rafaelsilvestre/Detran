@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,16 +12,23 @@ import java.util.TimerTask;
 import dao.OpcaoDAO;
 import dao.PerguntaDAO;
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import model.Opcao;
 import model.Pergunta;
 import util.Cronometro;
+import util.FXUtil;
 
 public class ResponderProvaController implements Initializable{
 	@FXML private ToggleGroup group = new ToggleGroup();
@@ -34,7 +42,6 @@ public class ResponderProvaController implements Initializable{
 	@FXML public ImageView imageQuestion;
 	
 	private int positionQuestion = 0;
-	
 	private PerguntaDAO perguntaDAO = new PerguntaDAO();
 	private ArrayList<Pergunta> perguntas;
 	
@@ -54,42 +61,80 @@ public class ResponderProvaController implements Initializable{
 	
 	public void reloadQuestion(){
 		Pergunta pergunta = this.perguntas.get(this.positionQuestion);
-		Image image = new Image("http://www.detran.se.gov.br/images/sinalizacao_transito/regulamentacao/R_26.jpg");
+		ArrayList<Opcao> opcoes = pergunta.getOpcoes();
 		
 		this.indexQuestion.setText("Pergunta " + (this.positionQuestion + 1));
 		this.labelPergunta.setText(pergunta.getTitle().trim());
-		this.imageQuestion.setImage(image);
 		
-		for(int i = 0; i < pergunta.getOpcoes().size(); i++){
+		Thread thread = new Thread() {
+			@Override
+			public void run() {
+				if(pergunta.getImage() == null)
+					imageQuestion.setVisible(false);
+				else{
+					imageQuestion.setVisible(true);
+					Image image = new Image(pergunta.getImage());
+					imageQuestion.setImage(image);
+				} 
+			}
+		};
+		thread.start();
+		
+		//System.out.println("==== " + pergunta.getSelected() + " ====");
+		
+		for(int i = 0; i < opcoes.size(); i++){
+			//System.out.println(opcoes.get(i).getId());
 			switch(i){
 				case 0:
-					this.option1.setText(pergunta.getOpcoes().get(0).getTitle().trim());
-					break;
+					if(pergunta.getOpcoes().get(0) != null)
+						this.option1.setText(pergunta.getOpcoes().get(0).getTitle().trim());
+					
+					if(opcoes.get(i).getId() == pergunta.getSelected())
+						this.option1.setSelected(true);
+					else
+						this.option1.setSelected(false);
+				break;
+				
 				case 1:
-					this.option2.setText(pergunta.getOpcoes().get(1).getTitle().trim());
-					break;
+					if(pergunta.getOpcoes().get(1) != null)
+						this.option2.setText(pergunta.getOpcoes().get(1).getTitle().trim());
+					
+					if(opcoes.get(i).getId() == pergunta.getSelected())
+						this.option2.setSelected(true);
+					else
+						this.option2.setSelected(false);
+				break;
+				
 				case 2:
-					this.option3.setText(pergunta.getOpcoes().get(2).getTitle().trim());
-					break;
+					if(pergunta.getOpcoes().get(2) != null)
+						this.option3.setText(pergunta.getOpcoes().get(2).getTitle().trim());
+					
+					if(opcoes.get(i).getId() == pergunta.getSelected())
+						this.option3.setSelected(true);
+					else
+						this.option3.setSelected(false);
+				break;
+					
 				case 3:
-					this.option4.setText(pergunta.getOpcoes().get(3).getTitle().trim());
-					break;
+					if(pergunta.getOpcoes().get(3) != null)
+						this.option4.setText(pergunta.getOpcoes().get(3).getTitle().trim());
+					
+					if(opcoes.get(i).getId() == pergunta.getSelected())
+						this.option4.setSelected(true);
+					else
+						this.option4.setSelected(false);
+				break;
+				default:
+					this.option1.setSelected(false);
+					this.option2.setSelected(false);
+					this.option3.setSelected(false);
+					this.option4.setSelected(false);
+				break;
 			}
 		}
 	}
 	
-	public boolean nextQuestion(){
-		//Pergunta pergunta = this.perguntas.get(this.positionQuestion);
-//		RadioButton selectedRadioButton = (RadioButton) group.getSelectedToggle();
-//		String toogleGroupValue = selectedRadioButton.getText();
-//		System.out.println(toogleGroupValue);
-
-//		for(int i = 0; i < pergunta.getOpcoes().size(); i++){
-//			if(pergunta.getOpcoes().get(i).getTitle().equals(toogleGroupValue)){
-//				System.out.println("Pergunta Correta -" + pergunta.getOpcoes().get(i).getTitle());
-//			}
-//		}
-		
+	public boolean nextQuestion(){		
 		if(this.positionQuestion == (this.perguntas.size() - 1))
 			return false;
 		this.positionQuestion++;
@@ -97,15 +142,73 @@ public class ResponderProvaController implements Initializable{
 		return true;
 	}
 	
-	public boolean  prevQuestion(){
+	public boolean prevQuestion(){
 		if(this.positionQuestion == 0)
 			return false;
 		this.positionQuestion--;
 		this.reloadQuestion();
-		return false;
+		return true;
 	}
 	
-	public void examFinalize(){
-		System.out.println("Finalizar");
+	public void examFinalize(Event event) throws IOException{
+//		ArrayList<Pergunta> perguntas = this.perguntas;
+//		for(int i = 0; i < perguntas.size(); i++){
+//			System.out.println(perguntas.get(i).getTitle());	
+//			System.out.println("Resposta " + perguntas.get(i).getSelected());
+//		}
+		
+		if(this.isComplete()){
+			FXUtil.alerta("Prova Completa!", null, null);
+		}else{
+			FXUtil.alerta("Prova Incompleta!", "Existem perguntas sem alternativa selecionada!", "Retorne para concluír sua prova");
+		}
+		//this.backToHome(event);
+	}
+	
+	public void backToHome(Event event) throws IOException{
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
+		Scene scene = new Scene(root, 734, 307);
+		
+		stage.setScene(scene);
+		stage.setResizable(false);
+		stage.centerOnScreen();
+		stage.show();  
+	}
+	
+	public Opcao getOptionSelected(){
+		Opcao option = null;
+		Pergunta pergunta = this.perguntas.get(this.positionQuestion);
+		RadioButton selectedRadioButton = (RadioButton) this.group.getSelectedToggle();
+		
+		if(selectedRadioButton != null){
+			for(int i = 0; i < pergunta.getOpcoes().size(); i++){
+				if(pergunta.getOpcoes().get(i).getTitle().trim().equals(selectedRadioButton.getText().trim())){
+					option = pergunta.getOpcoes().get(i);
+				}
+			}
+		}
+		return option;
+	}
+	
+	public void reloadAnswer(Event event){
+		Opcao option = this.getOptionSelected();
+		this.perguntas.get(this.positionQuestion).setSelected(option.getId());
+	}
+	
+	public boolean isComplete(){
+		Boolean returnMethod = true;
+		ArrayList<Pergunta> perguntas = this.perguntas;
+		for(int i = 0; i < perguntas.size(); i++){
+			Integer id = perguntas.get(i).getSelected();
+			if(id.toString().equals("")){
+				System.out.println(perguntas.get(i).getTitle());	
+				System.out.println("Resposta " + perguntas.get(i).getSelected());
+				returnMethod = false;
+				break;
+			}
+		}
+		return returnMethod;
 	}
 }
