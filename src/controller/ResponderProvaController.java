@@ -80,10 +80,11 @@ public class ResponderProvaController implements Initializable{
 		};
 		thread.start();
 		
-		//System.out.println("==== " + pergunta.getSelected() + " ====");
+		System.out.println("==== " + pergunta.getSelected() + " ====");
 		
 		for(int i = 0; i < opcoes.size(); i++){
 			//System.out.println(opcoes.get(i).getId());
+			System.out.println(i);
 			switch(i){
 				case 0:
 					if(pergunta.getOpcoes().get(0) != null)
@@ -124,12 +125,6 @@ public class ResponderProvaController implements Initializable{
 					else
 						this.option4.setSelected(false);
 				break;
-				default:
-					this.option1.setSelected(false);
-					this.option2.setSelected(false);
-					this.option3.setSelected(false);
-					this.option4.setSelected(false);
-				break;
 			}
 		}
 	}
@@ -160,7 +155,7 @@ public class ResponderProvaController implements Initializable{
 		if(this.isComplete()){
 			FXUtil.alerta("Prova Completa!", null, null);
 		}else{
-			FXUtil.alerta("Prova Incompleta!", "Existem perguntas sem alternativa selecionada!", "Retorne para concluír sua prova");
+			FXUtil.alerta("Prova Incompleta!", "Existem perguntas sem alternativa selecionada!", "Retorne para concluï¿½r sua prova");
 		}
 		//this.backToHome(event);
 	}
