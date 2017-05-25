@@ -1,8 +1,10 @@
 package model;
 
+import java.util.Date;
+
 public class Exame {
 	private int id;
-	private String date;
+	private Date date;
 	private String tempo;
 	
 	public int getId() {
@@ -11,10 +13,10 @@ public class Exame {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public String getTempo() {

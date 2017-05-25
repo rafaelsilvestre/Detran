@@ -80,11 +80,7 @@ public class ResponderProvaController implements Initializable{
 		};
 		thread.start();
 		
-		System.out.println("==== " + pergunta.getSelected() + " ====");
-		
 		for(int i = 0; i < opcoes.size(); i++){
-			//System.out.println(opcoes.get(i).getId());
-			System.out.println(i);
 			switch(i){
 				case 0:
 					if(pergunta.getOpcoes().get(0) != null)
@@ -145,19 +141,15 @@ public class ResponderProvaController implements Initializable{
 		return true;
 	}
 	
-	public void examFinalize(Event event) throws IOException{
-//		ArrayList<Pergunta> perguntas = this.perguntas;
-//		for(int i = 0; i < perguntas.size(); i++){
-//			System.out.println(perguntas.get(i).getTitle());	
-//			System.out.println("Resposta " + perguntas.get(i).getSelected());
-//		}
-		
+	public void examFinalize(Event event) throws IOException{		
 		if(this.isComplete()){
-			FXUtil.alerta("Prova Completa!", null, null);
+			ArrayList<Pergunta> perguntasFinal = this.perguntas;
+			
+			
+			this.backToHome(event);
 		}else{
-			FXUtil.alerta("Prova Incompleta!", "Existem perguntas sem alternativa selecionada!", "Retorne para conclu�r sua prova");
+			FXUtil.alerta("Prova Incompleta!", "Existem perguntas sem alternativa selecionada!", "Retorne para concluír sua prova");
 		}
-		//this.backToHome(event);
 	}
 	
 	public void backToHome(Event event) throws IOException{
@@ -197,9 +189,7 @@ public class ResponderProvaController implements Initializable{
 		ArrayList<Pergunta> perguntas = this.perguntas;
 		for(int i = 0; i < perguntas.size(); i++){
 			Integer id = perguntas.get(i).getSelected();
-			if(id.toString().equals("")){
-				System.out.println(perguntas.get(i).getTitle());	
-				System.out.println("Resposta " + perguntas.get(i).getSelected());
+			if(id == null || id == 0){				
 				returnMethod = false;
 				break;
 			}
