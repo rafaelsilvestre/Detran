@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="307.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RelatorioController">
+   <children>
+      <HBox layoutX="210.0" layoutY="142.0" prefHeight="307.0" prefWidth="734.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <LineChart fx:id="graficoLinha" layoutY="26.0" maxHeight="1.7976931348623157E308" prefHeight="280.0" prefWidth="373.0" title="Grafico">
+                    <xAxis>
+                      <CategoryAxis prefHeight="0.0" prefWidth="314.0" side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="307.0" prefWidth="360.0">
+               <children>
+                  <HBox layoutX="207.0" layoutY="265.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#backToHome" style="-fx-background-color: #ff0000;" text="Voltar" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" style="-fx-background-color: #87c037;" text="Imprimir" textFill="WHITE" />
+                     </children>
+                  </HBox>
+                  <VBox layoutX="20.0" layoutY="42.0">
+                     <children>
+                        <Label text="Provas Realizadas - ">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Médias de Notas - ">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Aprovados - ">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Reprovados - ">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

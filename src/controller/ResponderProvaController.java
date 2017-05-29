@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import dao.ExameDAO;
 import dao.OpcaoDAO;
 import dao.PerguntaDAO;
 import javafx.application.Platform;
@@ -25,8 +26,10 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import model.Exame;
 import model.Opcao;
 import model.Pergunta;
+import model.Usuario;
 import util.Cronometro;
 import util.FXUtil;
 
@@ -141,12 +144,18 @@ public class ResponderProvaController implements Initializable{
 		return true;
 	}
 	
-	public void examFinalize(Event event) throws IOException{		
+	public void examFinalize(Event event) throws IOException, SQLException{		
 		if(this.isComplete()){
-			ArrayList<Pergunta> perguntasFinal = this.perguntas;
+			ArrayList<Pergunta> perguntasRespondidas = this.perguntas;	
+			
+			Exame exame = new Exame();
+			exame.setTempo("20:00");
 			
 			
-			this.backToHome(event);
+			ExameDAO exameDAO = new ExameDAO();
+			exameDAO.save(perguntasRespondidas, new Usuario(1), exame);
+			
+			this.backToGabarito(event);
 		}else{
 			FXUtil.alerta("Prova Incompleta!", "Existem perguntas sem alternativa selecionada!", "Retorne para concluír sua prova");
 		}
@@ -162,6 +171,22 @@ public class ResponderProvaController implements Initializable{
 		stage.setResizable(false);
 		stage.centerOnScreen();
 		stage.show();  
+	}
+	
+	public void backToGabarito(Event event) throws IOException{
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = FXMLLoader.load(getClass().getResource("/view/Gabarito.fxml"));
+		Scene scene = new Scene(root, 734, 307);
+		
+		stage.setScene(scene);
+		stage.setResizable(false);
+		stage.centerOnScreen();
+		stage.show();  
+	}
+	
+	public void desistirProva(Event event) throws IOException{
+		this.backToHome(event);
 	}
 	
 	public Opcao getOptionSelected(){

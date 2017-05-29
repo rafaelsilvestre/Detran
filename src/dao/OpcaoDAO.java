@@ -42,7 +42,7 @@ public class OpcaoDAO {
 		PreparedStatement ps = null;
 	    ResultSet rs = null;
 		
-	    String sql = "SELECT * FROM OPCAO WHERE ID_PERGUNTA = ?";
+	    String sql = "SELECT * FROM OPCAO WHERE ID_PERGUNTA = ? ORDER BY RANDOM()";
 		try {
 			 ps = this.connection.prepareStatement(sql);
 			 ps.setInt(1, pergunta.getId());

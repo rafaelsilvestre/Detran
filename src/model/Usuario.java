@@ -10,6 +10,14 @@ public class Usuario {
 	private String cpf;
 	private ArrayList<Exame> exames = new ArrayList<Exame>();
 	
+	public Usuario(int id){
+		this.id = id;
+	}
+	
+	public Usuario(){
+		
+	}
+	
 	public int getId() {
 		return id;
 	}

@@ -61,21 +61,43 @@
             </VBox>
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <HBox alignment="CENTER" layoutX="165.0" layoutY="5.0">
+                  <VBox layoutX="162.0" layoutY="1.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#prevQuestion" prefWidth="110.0" text="Voltar">
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#nextQuestion" prefHeight="27.0" prefWidth="110.0" text="Avançar">
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#examFinalize" prefHeight="27.0" prefWidth="110.0" text="Finalizar" />
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#prevQuestion" prefWidth="110.0" text="Voltar">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#nextQuestion" prefHeight="27.0" prefWidth="110.0" text="Avançar">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#examFinalize" prefHeight="27.0" prefWidth="110.0" text="Finalizar" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#prevQuestion" prefWidth="110.0" text="Voltar" visible="false">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#desistirProva" prefHeight="27.0" prefWidth="110.0" style="-fx-background-color: #ff0000;" text="Desistir" textFill="WHITE">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#examFinalize" prefHeight="27.0" prefWidth="110.0" text="Finalizar" visible="false" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </HBox>
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
             </Pane>
          </children>

@@ -11,9 +11,9 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent parent = FXMLLoader.load(getClass().getResource("Main.fxml"));
-    	//Parent parent = FXMLLoader.load(getClass().getResource("CadastraPerguntas.fxml"));
         Scene scene = new Scene(parent);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("Detran Goiás");
         primaryStage.setResizable(false);
         primaryStage.centerOnScreen();
         primaryStage.show();
