@@ -33,7 +33,7 @@ import model.Usuario;
 import util.Cronometro;
 import util.FXUtil;
 
-public class ResponderProvaController implements Initializable{
+public class ResponderProvaController extends Cronometro implements Initializable{
 	@FXML private ToggleGroup group = new ToggleGroup();
 	@FXML private RadioButton option1;
 	@FXML private RadioButton option2;
@@ -49,12 +49,31 @@ public class ResponderProvaController implements Initializable{
 	private ArrayList<Pergunta> perguntas;
 	
 	public ResponderProvaController() throws SQLException{
+		super(0, 0, 0, 0, 0, 10, REGRESSIVA);
 		this.perguntas =  this.perguntaDAO.getPerguntas();
 	}
  
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.reloadQuestion();
+		
+		this.cronometro();
+		
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				Platform.runLater(() -> {
+					labelTime.setText(getTime());
+					if(getTime().equals("00:00")){
+						labelTime.setText("00:00");
+						System.out.println("Acabou");
+						cancel();
+						FXUtil.alerta("Atenção", "Tempo disponível para resolver a prova excedido", "Retorne novamente para resolver uma nova prova");
+					}
+                });
+            }
+        }, 1000, 1000);
 		
 		option1.setToggleGroup(group);
 		option2.setToggleGroup(group);

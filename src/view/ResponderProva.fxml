@@ -19,7 +19,7 @@
                         <Font name="System Bold" size="17.0" />
                      </font>
                   </Label>
-                  <Label fx:id="time" layoutX="631.0" layoutY="1.0" text="20:00">
+                  <Label fx:id="labelTime" layoutX="631.0" layoutY="1.0" text="">
                      <font>
                         <Font size="15.0" />
                      </font>
