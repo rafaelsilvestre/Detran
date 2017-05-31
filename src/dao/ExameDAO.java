@@ -24,16 +24,29 @@ public class ExameDAO {
 		PreparedStatement ps = null;
 		PreparedStatement ps1 = null;
 		int idExame = 0;
+		double nota = 0.0;
 		java.util.Date dataUtil = new java.util.Date();
 		java.sql.Date dataSql = new java.sql.Date(dataUtil.getTime());
+		
+		for(int i = 0; i < perguntas.size(); i++){
+			Pergunta pergunta = perguntas.get(i);
+			for(int x = 0; x < pergunta.getOpcoes().size(); x++){
+				Opcao opcao = pergunta.getOpcoes().get(x);
+				if(opcao.getId() == pergunta.getSelected()){
+					if(opcao.isVerdadeiro())
+						++nota;
+				}
+			}
+		}
 	    
-		String sql = "INSERT INTO EXAME (ID_USUARIO, DATA_REALIZADA, TEMPO) VALUES (?, ?, ?) RETURNING ID_EXAME";
+		String sql = "INSERT INTO EXAME (ID_USUARIO, DATA_REALIZADA, TEMPO, NOTA) VALUES (?, ?, ?, ?) RETURNING ID_EXAME";
 		String sqlRespostas = "INSERT INTO SELECAO (ID_OPCAO, ID_EXAME) VALUES (?, ?)";
 		 try {
 			 ps = this.connection.prepareStatement(sql);
 			 ps.setInt(1, usuario.getId());
 			 ps.setDate(2, dataSql);
 			 ps.setString(3, exame.getTempo());
+			 ps.setDouble(4, nota);
 			 ResultSet rs =  ps.executeQuery();
 			 while(rs.next()){
 				 idExame = rs.getInt("id_exame");
@@ -69,6 +82,22 @@ public class ExameDAO {
 			exames.add(exame);
 		}
 		return exames;
+	}
+	
+	public Exame getExame(Exame exameSelected) throws SQLException{
+		Exame exame = new Exame();
+		String sql = "SELECT * FROM EXAME WHERE ID_EXAME = ?";
+		PreparedStatement ps = this.connection.prepareStatement(sql);
+		ps.setInt(1, exameSelected.getId());
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()){
+			exame.setId(rs.getInt("id_exame"));
+			exame.setTempo(rs.getString("tempo"));
+			exame.setNota(rs.getDouble("nota"));
+		}
+		
+		return exame;
 	}
 	
 	public ArrayList<Pergunta> getPerguntasExame(Exame exame) throws SQLException{

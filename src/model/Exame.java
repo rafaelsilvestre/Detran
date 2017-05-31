@@ -6,7 +6,14 @@ public class Exame {
 	private int id;
 	private Date date;
 	private String tempo;
+	private Double nota;
 	
+	public Double getNota() {
+		return nota;
+	}
+	public void setNota(Double nota) {
+		this.nota = nota;
+	}
 	public int getId() {
 		return id;
 	}

@@ -69,7 +69,7 @@ public class ResponderProvaController extends Cronometro implements Initializabl
 						labelTime.setText("00:00");
 						System.out.println("Acabou");
 						cancel();
-						FXUtil.alerta("Atenção", "Tempo disponível para resolver a prova excedido", "Retorne novamente para resolver uma nova prova");
+						FXUtil.alerta("Atenï¿½ï¿½o", "Tempo disponï¿½vel para resolver a prova excedido", "Retorne novamente para resolver uma nova prova");
 					}
                 });
             }
@@ -168,7 +168,7 @@ public class ResponderProvaController extends Cronometro implements Initializabl
 			ArrayList<Pergunta> perguntasRespondidas = this.perguntas;	
 			
 			Exame exame = new Exame();
-			exame.setTempo("20:00");
+			exame.setTempo(labelTime.getText());
 			
 			ExameDAO exameDAO = new ExameDAO();
 			Exame exameRetorno = exameDAO.save(perguntasRespondidas, new Usuario(1), exame);

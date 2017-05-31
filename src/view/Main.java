@@ -1,5 +1,8 @@
   package view;
 
+import java.util.Calendar;
+import java.util.TimeZone;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +16,7 @@ public class Main extends Application{
         Parent parent = FXMLLoader.load(getClass().getResource("Main.fxml"));
         Scene scene = new Scene(parent);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Detran Goiás");
+        primaryStage.setTitle("Detran Goiï¿½s");
         primaryStage.setResizable(false);
         primaryStage.centerOnScreen();
         primaryStage.show();

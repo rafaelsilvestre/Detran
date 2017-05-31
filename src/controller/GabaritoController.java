@@ -33,6 +33,7 @@ public class GabaritoController implements Initializable {
 	@FXML private VBox vBoxPrimary;
 	public static Exame exame;
 	private ExameDAO exameDAO;
+	private double nota = 0.0;
 	String[] alternativas = { "A", "B", "C", "D"};
 	
 	@Override
@@ -49,6 +50,12 @@ public class GabaritoController implements Initializable {
 	public void reloadQuestion() throws SQLException{
 		exameDAO = new ExameDAO();
 		ArrayList<Pergunta> perguntas = exameDAO.getPerguntasExame(this.exame);
+		Exame exame = exameDAO.getExame(this.exame);
+		
+		// Detalhes Exame
+		idExame.setText("#" + Integer.toString(exame.getId()));
+		labelTempo.setText(exame.getTempo());
+		labelNota.setText(Double.toString(exame.getNota()));
 		
 		for(int i = 0; i < perguntas.size(); i++){	
 			Label label = new Label();
@@ -75,14 +82,14 @@ public class GabaritoController implements Initializable {
 					opcaoLabel.setTextFill(Color.web("#87c037"));
 				
 				if(perguntas.get(i).getSelected() == opcao.getId()){
-					if(opcao.isVerdadeiro())
+					if(opcao.isVerdadeiro()){
 						opcaoLabel.setTextFill(Color.web("#87c037"));
-					else
+						++nota;
+					}else
 						opcaoLabel.setTextFill(Color.web("#ff0000"));
 				}
 				
 				opcaoLabel.setText(alternativas[x]+ ") " + opcao.getTitle().trim());
-				System.out.println( opcao.getId());
 				vBoxPrimary.getChildren().add(opcaoLabel);
 			}
 		}

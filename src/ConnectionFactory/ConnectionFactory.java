@@ -9,7 +9,7 @@ public class ConnectionFactory {
 	 private final String DRIVER = "org.postgresql.Driver";
 	    private final String URL = "jdbc:postgresql://127.0.0.1:5432/detran";
 	    private final String USER = "postgres";
-	    private final String PASSWORD = "postgre";
+	    private final String PASSWORD = "b3002015";
 	        
 	    
 	    public Connection getConnection(){
