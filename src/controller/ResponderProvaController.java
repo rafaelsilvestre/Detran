@@ -49,7 +49,7 @@ public class ResponderProvaController extends Cronometro implements Initializabl
 	private ArrayList<Pergunta> perguntas;
 	
 	public ResponderProvaController() throws SQLException{
-		super(0, 0, 0, 0, 0, 10, REGRESSIVA);
+		super(0, 0, 0, 0, 20, 0, REGRESSIVA);
 		this.perguntas =  this.perguntaDAO.getPerguntas();
 	}
  
@@ -170,9 +170,11 @@ public class ResponderProvaController extends Cronometro implements Initializabl
 			Exame exame = new Exame();
 			exame.setTempo("20:00");
 			
-			
 			ExameDAO exameDAO = new ExameDAO();
-			exameDAO.save(perguntasRespondidas, new Usuario(1), exame);
+			Exame exameRetorno = exameDAO.save(perguntasRespondidas, new Usuario(1), exame);
+			
+			GabaritoController exameControl = new GabaritoController();
+			exameControl.exame = exameRetorno;
 			
 			this.backToGabarito(event);
 		}else{

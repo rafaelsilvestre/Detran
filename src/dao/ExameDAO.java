@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import ConnectionFactory.ConnectionFactory;
 import model.Exame;
+import model.Opcao;
 import model.Pergunta;
 import model.Usuario;
 import util.FXUtil;
@@ -19,7 +20,7 @@ public class ExameDAO {
 		this.connection = new ConnectionFactory().getConnection();
 	}
 	
-	public void save(ArrayList<Pergunta> perguntas, Usuario usuario, Exame exame) throws SQLException{
+	public Exame save(ArrayList<Pergunta> perguntas, Usuario usuario, Exame exame) throws SQLException{
 		PreparedStatement ps = null;
 		PreparedStatement ps1 = null;
 		int idExame = 0;
@@ -37,9 +38,8 @@ public class ExameDAO {
 			 while(rs.next()){
 				 idExame = rs.getInt("id_exame");
 			 }
-			 
+			 exame.setId(idExame);
 			 for(int i = 0; i < perguntas.size(); i++){
-				 System.out.println(perguntas.get(i).getSelected());
 				 ps1 = this.connection.prepareStatement(sqlRespostas);
 				 ps1.setInt(1, perguntas.get(i).getSelected());
 				 ps1.setInt(2, idExame);
@@ -52,6 +52,7 @@ public class ExameDAO {
 			 ps.close();
 			 ps1.close();
 	     }
+		 return exame;
 	}
 	
 	public ArrayList<Exame> getExames() throws SQLException{
@@ -69,6 +70,45 @@ public class ExameDAO {
 		}
 		return exames;
 	}
+	
+	public ArrayList<Pergunta> getPerguntasExame(Exame exame) throws SQLException{
+		ArrayList<Pergunta> perguntas = new ArrayList<Pergunta>();
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT PERGUNTA.TITULO, PERGUNTA.ID_PERGUNTA, SELECAO.ID_OPCAO FROM SELECAO ");
+		sql.append("INNER JOIN OPCAO ON OPCAO.ID_OPCAO = SELECAO.ID_OPCAO ");
+		sql.append("INNER JOIN PERGUNTA ON PERGUNTA.ID_PERGUNTA = OPCAO.ID_PERGUNTA ");
+		sql.append("WHERE SELECAO.ID_EXAME = ?");
+		
+		PreparedStatement ps = this.connection.prepareStatement(sql.toString());
+		ps.setInt(1, exame.getId());
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()){
+			Pergunta pergunta = new Pergunta();
+			pergunta.setId(rs.getInt("id_pergunta"));
+			pergunta.setTitle(rs.getString("titulo"));
+			pergunta.setSelected(rs.getInt("id_opcao"));
+			
+			
+			String sql2 = "SELECT * FROM OPCAO WHERE ID_PERGUNTA = ? LIMIT 4";
+			
+			PreparedStatement ps2 = this.connection.prepareStatement(sql2);
+			ps2.setInt(1, pergunta.getId());
+			ResultSet rs2 = ps2.executeQuery();
+			 
+			while(rs2.next()){	
+				Opcao opcao = new Opcao();
+				opcao.setId(rs2.getInt(1));
+				opcao.setTitle(rs2.getString("titulo"));
+				opcao.setVeracidade(rs2.getBoolean("veracidade"));
+				pergunta.setOpcoes(opcao);
+			}
+			perguntas.add(pergunta);
+		}
+		return perguntas;
+	}
+	
 	
 	public void deleteExame(Exame exame) throws SQLException{
 		try{

@@ -57,13 +57,28 @@ public class ExamesController  implements Initializable{
 		tableExame.setItems(listExames);		
 	}
 	
-	public void verGabarito(){
+	public void verGabarito(Event event) throws IOException{
 		Exame exame = tableExame.getSelectionModel().getSelectedItem();
 		if(exame == null)
 			FXUtil.alerta("Opps!", "Não existe um exame selecionado!", "Seleciona uma exame na tabela");
 		else{
+			GabaritoController exameControl = new GabaritoController();
+			exameControl.exame = exame;
 			
+			this.backToGabarito(event);
 		}
+	}
+	
+	public void backToGabarito(Event event) throws IOException{
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = FXMLLoader.load(getClass().getResource("/view/Gabarito.fxml"));
+		Scene scene = new Scene(root, 734, 307);
+		
+		stage.setScene(scene);
+		stage.setResizable(false);
+		stage.centerOnScreen();
+		stage.show();  
 	}
 	
 	public void excluirExame() throws SQLException{
