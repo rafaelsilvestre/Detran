@@ -46,7 +46,7 @@ public class RelatorioController implements Initializable{
 		labelProvasRealizadas.append("Provas Realizadas - ");
 		labelAprovados.append("Aprovados - ");
 		labelReprovados.append("Reprovados - ");
-		labelHorario.append("Média de horário - ");
+		labelHorario.append("Media de horario - ");
 		
 		try {
 			labelProvasRealizadas.append(exameDAO.getProvasRealizadas());

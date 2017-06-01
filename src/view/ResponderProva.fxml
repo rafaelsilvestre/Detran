@@ -65,17 +65,17 @@
                      <children>
                         <HBox alignment="CENTER">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#prevQuestion" prefWidth="110.0" text="Voltar">
+                              <Button fx:id="btnVoltar" mnemonicParsing="false" onAction="#prevQuestion" prefWidth="110.0" text="Voltar">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#nextQuestion" prefHeight="27.0" prefWidth="110.0" text="Avançar">
+                              <Button fx:id="btnAvancar" mnemonicParsing="false" onAction="#nextQuestion" prefHeight="27.0" prefWidth="110.0" text="Avançar">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#examFinalize" prefHeight="27.0" prefWidth="110.0" text="Finalizar" />
+                              <Button fx:id="btnFinalizarProva" mnemonicParsing="false" onAction="#examFinalize" prefHeight="27.0" prefWidth="110.0" text="Finalizar" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER">

@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -43,13 +44,16 @@ public class ResponderProvaController extends Cronometro implements Initializabl
 	@FXML public Label labelPergunta;
 	@FXML public Label indexQuestion;
 	@FXML public ImageView imageQuestion;
+	@FXML public Button btnFinalizarProva;
+	@FXML public Button btnAvancar;
+	@FXML public Button btnVoltar;
 	
 	private int positionQuestion = 0;
 	private PerguntaDAO perguntaDAO = new PerguntaDAO();
 	private ArrayList<Pergunta> perguntas;
 	
 	public ResponderProvaController() throws SQLException{
-		super(0, 0, 0, 0, 20, 0, REGRESSIVA);
+		super(0, 0, 0, 0,0, 10, REGRESSIVA);
 		this.perguntas =  this.perguntaDAO.getPerguntas();
 	}
  
@@ -66,10 +70,13 @@ public class ResponderProvaController extends Cronometro implements Initializabl
 				Platform.runLater(() -> {
 					labelTime.setText(getTime());
 					if(getTime().equals("00:00")){
-						labelTime.setText("00:00");
+						//labelTime.setText("00:00");
 						System.out.println("Acabou");
 						cancel();
-						FXUtil.alerta("Aten��o", "Tempo dispon�vel para resolver a prova excedido", "Retorne novamente para resolver uma nova prova");
+						FXUtil.alerta("Atencao", "Tempo disponivel para resolver a prova excedido", "Retorne novamente para resolver uma nova prova");
+						btnFinalizarProva.setDisable(true);
+						btnAvancar.setDisable(true);
+						btnVoltar.setDisable(true);
 					}
                 });
             }

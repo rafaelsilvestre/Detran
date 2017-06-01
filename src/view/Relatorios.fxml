@@ -37,7 +37,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="horario" text="Média de horário - ">
+            <Label fx:id="horario" text="Media de horario - ">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
