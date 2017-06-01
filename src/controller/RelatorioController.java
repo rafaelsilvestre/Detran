@@ -2,8 +2,10 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import dao.GraficoDAO;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,45 +17,54 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class RelatorioController implements Initializable{
-	@FXML private LineChart graficoLinha;
+	@FXML private Label provasRealizadas;
+	@FXML private Label aprovados;
+	@FXML private Label reprovados;
+	@FXML private Label horario;
+	
+	private StringBuilder labelProvasRealizadas;
+	private StringBuilder labelAprovados;
+	private StringBuilder labelReprovados;
+	private StringBuilder labelHorario;
+	private GraficoDAO exameDAO;
+	
+	public RelatorioController(){
+		exameDAO = new GraficoDAO();
+	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		graficoLinha = new LineChart<>(
-			new CategoryAxis(), new NumberAxis());
+		labelProvasRealizadas = new StringBuilder();
+		labelAprovados = new StringBuilder();
+		labelReprovados = new StringBuilder();
+		labelHorario = new StringBuilder();
+		
+		labelProvasRealizadas.append("Provas Realizadas - ");
+		labelAprovados.append("Aprovados - ");
+		labelReprovados.append("Reprovados - ");
+		labelHorario.append("Média de horário - ");
+		
+		try {
+			labelProvasRealizadas.append(exameDAO.getProvasRealizadas());
+			labelAprovados.append(exameDAO.getAprovados());
+			labelReprovados.append(exameDAO.getReprovados());
+			labelHorario.append("02:05");
 			
-			final String T1 = "T1";
-			final String T2 = "T2";
-			final String T3 = "T3";
-			final String T4 = "T4";
-
-			XYChart.Series prod1 = new XYChart.Series();
-			prod1.setName("Produto 1");
-
-			prod1.getData().add(new XYChart.Data(T1, 5));
-			prod1.getData().add(new XYChart.Data(T2, -2));
-			prod1.getData().add(new XYChart.Data(T3, 3));
-			prod1.getData().add(new XYChart.Data(T4, 15));
-
-			XYChart.Series prod2 = new XYChart.Series();
-			prod2.setName("Produto 2");
-
-			prod2.getData().add(new XYChart.Data(T1, -5));
-			prod2.getData().add(new XYChart.Data(T2, -1));
-			prod2.getData().add(new XYChart.Data(T3, 12));
-			prod2.getData().add(new XYChart.Data(T4, 8));
-
-			XYChart.Series prod3 = new XYChart.Series();
-			prod3.setName("Produto 3");
-
-			prod3.getData().add(new XYChart.Data(T1, 12));
-			prod3.getData().add(new XYChart.Data(T2, 15));
-			prod3.getData().add(new XYChart.Data(T3, 12));
-			prod3.getData().add(new XYChart.Data(T4, 20));
-			graficoLinha.getData().addAll(prod1, prod2, prod3);
+			this.reloadInfo();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void reloadInfo(){
+		provasRealizadas.setText(labelProvasRealizadas.toString());
+		aprovados.setText(labelAprovados.toString());
+		reprovados.setText(labelReprovados.toString());
+		horario.setText(labelHorario.toString());
 	}
 	
 	public void backToHome(Event event) throws IOException{

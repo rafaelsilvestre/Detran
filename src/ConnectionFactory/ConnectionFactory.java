@@ -7,9 +7,9 @@ import java.sql.ResultSet;
 
 public class ConnectionFactory {
 	 private final String DRIVER = "org.postgresql.Driver";
-	    private final String URL = "jdbc:postgresql://127.0.0.1:5432/detran";
+	    private final String URL = "jdbc:postgresql://127.0.0.1:5432/detranmaster";
 	    private final String USER = "postgres";
-	    private final String PASSWORD = "b3002015";
+	    private final String PASSWORD = "postgre";
 	        
 	    
 	    public Connection getConnection(){
