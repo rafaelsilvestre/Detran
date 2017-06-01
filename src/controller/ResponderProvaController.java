@@ -53,7 +53,7 @@ public class ResponderProvaController extends Cronometro implements Initializabl
 	private ArrayList<Pergunta> perguntas;
 	
 	public ResponderProvaController() throws SQLException{
-		super(0, 0, 0, 0,0, 10, REGRESSIVA);
+		super(0, 0, 0, 0, 20, 0, REGRESSIVA);
 		this.perguntas =  this.perguntaDAO.getPerguntas();
 	}
  
